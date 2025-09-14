@@ -49,6 +49,8 @@ class OrderController extends Controller
 
     public function show(Restaurant $restaurant, Order $order): JsonResource
     {
+        $order->load('user');
+
         return OrderResource::make($order);
     }
 

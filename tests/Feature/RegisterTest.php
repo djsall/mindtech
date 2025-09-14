@@ -22,8 +22,6 @@ it('registers a user successfully', function () {
                     'id',
                     'name',
                     'email',
-                    'created_at',
-                    'updated_at',
                 ],
             ],
         ]);

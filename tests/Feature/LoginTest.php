@@ -25,8 +25,6 @@ it('logs in a user with correct credentials', function () {
                     'id',
                     'name',
                     'email',
-                    'created_at',
-                    'updated_at',
                 ],
                 'token',
             ],

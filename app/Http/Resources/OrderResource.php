@@ -11,7 +11,8 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'customerId' => $this->user_id,
+            'customer' => $this->whenLoaded('user', fn () => UserResource::make($this->user)),
+            'customerId' => $this->customer_id,
             'restaurantId' => $this->restaurant_id,
             'status' => $this->status,
             'items' => $this->items,

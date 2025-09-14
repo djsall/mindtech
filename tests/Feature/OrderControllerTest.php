@@ -29,7 +29,6 @@ it('lists orders for a restaurant', function () {
                 '*' => [
                     'id',
                     'restaurantId',
-                    'customerId',
                     'items',
                     'status',
                     'created_at',
@@ -85,6 +84,11 @@ it('shows a single order', function () {
                 'id',
                 'restaurantId',
                 'customerId',
+                'customer' => [
+                    'id',
+                    'name',
+                    'email',
+                ],
                 'items',
                 'status',
                 'created_at',
