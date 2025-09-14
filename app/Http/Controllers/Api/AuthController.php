@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignupRequest;
 use App\Http\Resources\AuthenticatedUserResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class AuthController extends Controller
     {
         $user = User::firstWhere('email', $request->email);
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Invalid login credentials',
             ], 401);
@@ -42,6 +43,11 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return AuthenticatedUserResource::make(compact('user', 'token'));
+    }
+
+    public function show(Request $request): JsonResource
+    {
+        return UserResource::make($request->user());
     }
 
     public function logout(Request $request): JsonResponse
