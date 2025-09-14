@@ -10,3 +10,6 @@
 - use `make test` to run the tests
 - use `make down` to tear down the application
 
+## Accessing the open-api documentation
+- http://localhost:8080/docs/api
+
