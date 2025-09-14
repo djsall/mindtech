@@ -72,6 +72,33 @@ it('creates a new order successfully', function () {
         ->where('user_id', $user->id)->exists())->toBeTrue();
 });
 
+it('creates a new order - fails on wrong menu item', function () {
+    $user = User::factory()->create();
+    $restaurant = Restaurant::factory()->hasMenuItems(10)->create();
+    $other_restaurant = Restaurant::factory()->hasMenuItems(10)->create();
+    $menuItems = $other_restaurant->menuItems;
+
+    $payload = [
+        'customerId' => $user->id,
+        'restaurantId' => $restaurant->id,
+        'items' => $menuItems->map(fn ($item) => [
+            'id' => $item->id,
+            'quantity' => 2,
+            'instructions' => 'Extra spicy',
+        ])->toArray(),
+    ];
+
+    $response = postJson('/api/orders', $payload, $this->headers);
+
+    $response->assertUnprocessable()
+        ->assertJson([
+            'message' => 'Invalid menu items provided',
+        ]);
+
+    expect(Order::where('restaurant_id', $restaurant->id)
+        ->where('user_id', $user->id)->exists())->toBeFalse();
+});
+
 it('shows a single order', function () {
     $restaurant = Restaurant::factory()->hasMenuItems(10)->create();
     $order = Order::factory()->forRestaurant($restaurant)->create();

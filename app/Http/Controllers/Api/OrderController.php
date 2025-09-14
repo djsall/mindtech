@@ -35,7 +35,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'message' => 'Invalid menu items provided',
-            ], 400);
+            ], 422);
         }
 
         $order = $restaurant->orders()->create([
