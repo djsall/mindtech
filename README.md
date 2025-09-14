@@ -12,4 +12,5 @@
 
 ## Accessing the open-api documentation
 - http://localhost:8080/docs/api
+- on the `overview` tab in the top right corner, the OpenAPI document can be exported
 
