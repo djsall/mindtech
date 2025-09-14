@@ -11,9 +11,16 @@
 |
 */
 
+use App\Models\User;
+
 pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature');
+    ->in('Feature')
+    ->beforeEach(function () {
+
+        $this->user = User::factory()->create();
+        $this->token = $this->user->createToken('auth_token')->plainTextToken;
+    });
 
 /*
 |--------------------------------------------------------------------------
