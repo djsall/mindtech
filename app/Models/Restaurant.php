@@ -15,10 +15,10 @@ class Restaurant extends Model
         'name', 'description',
     ];
 
-    //    public function orders(): HasMany
-    //    {
-    //        return $this->hasMany(Order::class);
-    //    }
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 
     public function menuItems(): HasMany
     {
